@@ -3,30 +3,47 @@ const http = require('http');
 console.log("I was here");
 
 const requestHandler = (req, res) => {
-    console.log("I was here in requestHandler");
-    // res.setHeader('Content-Type', 'text/html');
-    // res.write('<html>');
-    // res.write('<head><title>First Sample Server</title></head>');
-    // res.write('<body>');
-    // res.write('<h1>Welcome to the first sample server</h1>');
-    // res.write('</body>');
-    // res.write('</html>');
-    // res.end();
-
-     // OR
-
+    console.log("Request received", req.url, req.method, req.headers);
     res.setHeader('Content-Type', 'text/html');
-    res.write(`
-        <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <title>Node js</title>
-            </head>
-            <body>
-                <h1>Welcome to first server</h1>
-            </body>
-        </html>
-    `);
+    if(req.url === '/'){
+        res.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <title>Node js</title>
+                </head>
+                <body>
+                    <h1>Welcome to first server</h1>
+                </body>
+            </html>
+        `);
+    }
+    else if(req.url === '/products'){
+        res.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <title>products</title>
+                </head>
+                <body>
+                    <h1>Product list will appear here.</h1>
+                </body>
+            </html>
+        `);
+    }
+    else{
+        res.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <title>Page Not Found</title>
+                </head>
+                <body>
+                    <h1>404 Page not found</h1>
+                </body>
+            </html>
+        `);
+    }
     res.end();
 }
 
