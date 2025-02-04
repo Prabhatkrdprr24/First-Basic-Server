@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 
+
 console.log("I was here");
 
 const requestHandler = (req, res) => {
@@ -38,6 +39,7 @@ const requestHandler = (req, res) => {
             // console.log(body);
             const urlParams = new URLSearchParams(body);
             const bodyJson = {};
+            //[["product", "jeans"], ["price", "1299"]]
             for(const [key, value] of urlParams.entries()){
                 bodyJson[key] = value;
             }
