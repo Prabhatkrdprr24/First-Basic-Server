@@ -21,6 +21,7 @@ const RequestHandler = (req, res) => {
             </body>
             </html>
         `);
+        res.end();
     }
     else if(req.url === '/buy-product'){
         console.log("form data received");
@@ -40,11 +41,13 @@ const RequestHandler = (req, res) => {
                 bodyJson[key] = value;
             }
             // console.log(bodyJson);
-            fs.writeFileSync('buy.txt', JSON.stringify(bodyJson));
+            fs.writeFile('buy.txt', JSON.stringify(bodyJson), (err) => {
+                res.statusCode = 302;
+                res.setHeader('Location', '/products');
+                res.end();
+                console.log("Sending response");
+            });
         });
-
-        res.statusCode = 302;
-        res.setHeader('Location', '/products');
     }
     else if(req.url === '/products'){
         res.write(`
@@ -58,6 +61,7 @@ const RequestHandler = (req, res) => {
                 </body>
             </html>
         `);
+        res.end();
     }
     else{
         res.statusCode = 404;
@@ -72,8 +76,8 @@ const RequestHandler = (req, res) => {
                 </body>
             </html>
         `);
+        res.end();
     }
-    res.end();
 }
 
 // module.exports = { 
