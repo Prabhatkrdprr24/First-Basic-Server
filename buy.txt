@@ -1,1 +1,1 @@
-{"product":"shirt","budget":"paint"}
+{"product":"kurta","budget":"assa"}
