@@ -28,10 +28,16 @@ const requestHandler = (req, res) => {
     else if(req.url === '/buy-product'){
         console.log("form data received");
 
+        const buffer = [];
         req.on('data', (chunk) => {
             console.log(chunk);
+            buffer.push(chunk);
         });
-        
+        req.on('end', () => {
+            const body = Buffer.concat(buffer).toString();
+            console.log(body);
+        });
+
         fs.writeFileSync('buy.txt', "Myntra app");
         res.statusCode = 302;
         res.setHeader('Location', '/products');
