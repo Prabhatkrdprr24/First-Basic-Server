@@ -30,15 +30,21 @@ const requestHandler = (req, res) => {
 
         const buffer = [];
         req.on('data', (chunk) => {
-            console.log(chunk);
+            // console.log(chunk);
             buffer.push(chunk);
         });
         req.on('end', () => {
             const body = Buffer.concat(buffer).toString();
-            console.log(body);
+            // console.log(body);
+            const urlParams = new URLSearchParams(body);
+            const bodyJson = {};
+            for(const [key, value] of urlParams.entries()){
+                bodyJson[key] = value;
+            }
+            // console.log(bodyJson);
+            fs.writeFileSync('buy.txt', JSON.stringify(bodyJson));
         });
 
-        fs.writeFileSync('buy.txt', "Myntra app");
         res.statusCode = 302;
         res.setHeader('Location', '/products');
     }
