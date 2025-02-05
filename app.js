@@ -1,19 +1,24 @@
 //core module
 const http = require('http');
 
-//Local module
-const { handler } = require('./RequestHandler');
+//External module
+const express = require('express');
 
-function compare(num){
-    if(num = 10){
-        return "Equal";
-    }
-    else{
-        return "Not Equal";
-    }
-}
+const app = express();
 
-const server = http.createServer(handler);
+//first middleware
+app.use((req, res, next) => {
+    console.log("Middleware 1", req.url, req.method);
+    next(); 
+});
+
+//second middleware
+app.use((req, res, next) => {
+    console.log("Middleware 2", req.url, req.method);
+    res.send("<h1>Hello from express</h1>");
+});
+
+const server = http.createServer(app);
 const PORT = 3001;
 server.listen(PORT, () => {
     console.log(`server running at http://localhost:${PORT}/`)
