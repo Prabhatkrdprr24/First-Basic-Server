@@ -1,1 +1,1 @@
-{"product":"kurta","budget":"assa"}
+{"product":"apple","budget":"00000"}
